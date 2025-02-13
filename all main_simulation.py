@@ -31,7 +31,7 @@ pas_tick = 1       # 1 tick = 1 unité de temps
 speed_tik = 0.3    # Délai (en secondes) entre deux ticks
 EOS = 50           # Nombre total de ticks
 
-# Période L 
+# Période L pour la fatigue/exp
 L_period = 30
 f_init = 1.0
 e_init = 1.0
@@ -128,7 +128,12 @@ profile_2 = profile({
 routing = {
     "J1": [("M1", 20), ("M3", 15), ("M2", 10)],
     "J2": [("M2", 22), ("M1", 12), ("M3", 15)],
-    "J3": [("M3", 14), ("M2", 12), ("M1", 15)]
+    "J3": [("M3", 14), ("M2", 12), ("M1", 15)],
+    "J4": [("M1", 14), ("M3", 12), ("M2", 15)],
+    "J5": [("M1", 14), ("M2", 12), ("M3", 15)],
+    "J6": [("M2", 14), ("M1", 12), ("M3", 15)],
+    "J7": [("M2", 14), ("M3", 12), ("M1", 15)],
+    "J8": [("M3", 14), ("M2", 12), ("M1", 15)],
 }
 
 ###################################################
@@ -329,7 +334,7 @@ class JobShopSimulation:
 
         # === Création des jobs ===
         self.jobs = []
-        for j in ["J1", "J2", "J3"]:
+        for j in [ "J1" , "J2" , "J3" , "J4" , "J5" , "J6" , "J7" , "J8"]:
             self.jobs.append(Job(nl_interface, j, routing[j]))
 
         # On calcule la durée totale pour chaque job

@@ -11,7 +11,7 @@ import time
 import matplotlib.pyplot as plt
 
 # Import NetLogo
-from netlogopy2.netlogopy import run_netlogo
+# from netlogopy2.netlogopy import run_netlogo
 
 # Import du code
 from exmple.job_shop import Job, Operation, Worker, Machine, Zone
@@ -20,6 +20,7 @@ from exmple.profiles import profile_0, profile_1, profile_2        # ou depuis p
 # Ou + correct => from profiles import profile_0, profile_1, profile_2, ...
 from exmple.job_shop import Job, Operation, Machine, Worker, Zone
 from exmple.plot_utils import init_figure_jobs, init_figure_workers, init_figure_states
+from netlogopy2.netlogopy import run_netlogo
 
 # + d'autres modules éventuellement
 
