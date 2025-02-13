@@ -1,0 +1,46 @@
+
+Modeling and Simulation of Worker Profiles in Production Systems
+Abstract
+The integration of worker profiles in production systems is essential for optimizing performance and ensuring efficiency. This article introduces the modeling of worker punctuality, fatigue, and experience using stochastic and functional approaches to enhance the accuracy of productivity simulations. A Markov chain is used to model punctuality, while fatigue and experience are represented through specific functional models. The developed simulator demonstrates the impact of these factors on production performance, providing valuable insights for dynamic and anticipatory decision-making.
+
+1. Introduction
+Human behavior significantly affects industrial production processes. Modern technologies, although replacing humans in repetitive tasks, still rely on human operators for strategic decision-making and handling uncertainties. Accurate modeling of human behavior is essential for optimizing production systems and minimizing operational costs. This work aims to model worker behavior, focusing on punctuality, fatigue, and experience, and evaluates their impact on productivity through simulation.
+
+2. Modeling Approaches
+2.1 Punctuality as a Markov Chain
+Punctuality is modeled as a Markov chain, where each state represents a worker's presence or absence from their workstation. The states are divided into productive (at workstation) and non-productive zones (e.g., break areas). The transition probabilities between states are defined in a transition matrix.
+
+
+#### 2.2 Fatigue Modeling
+Fatigue is modeled using an exponential decay function. The fatigue level \( F(t) \) increases with time spent working and decreases during rest periods. The fatigue model is defined as:
+\[ F(t) = F_{0} e^{-\alpha t} \]
+where \( F_{0} \) is the initial fatigue level and \( \alpha \) is the fatigue recovery rate.
+#### 2.3 Experience Modeling
+Experience impacts the efficiency and speed of task completion. It is modeled as a learning curve function:
+\[ E(t) = E_{\text{max}} \left(1 - e^{-\beta t}\right) \]
+where \( E_{\text{max}} \) is the maximum experience level and \( \beta \) is the learning rate.
+### 3. Simulator Development
+#### 3.1 Simulator Design
+A multi-agent-based simulator was developed to integrate the models of punctuality, fatigue, and experience. The simulator consists of four types of agents: Worker, Job, Zone, and Workstation. Each agent interacts with others based on predefined rules and behaviors.
+#### 3.2 Simulation Algorithm
+The simulation algorithm updates worker locations and status at each time step, processes jobs at workstations, and calculates productivity based on completed jobs. The key steps are as follows:
+1. Initialize simulation parameters.
+2. Update workers' locations using the Markov chain model.
+3. Calculate fatigue and experience levels.
+4. Process jobs at workstations if workers are present.
+5. Record productivity metrics.
+### 4. Results and Discussion
+#### 4.1 Simulation Setup
+Simulations were conducted for a production system with six workstations and multiple worker profiles. Each profile has different transition probabilities, fatigue rates, and learning curves. The simulation horizon was set to one week (5 working days, 8 hours per day).
+#### 4.2 Impact of Worker Profiles
+The results show significant variations in productivity depending on worker profiles. Workers with higher punctuality and experience levels contributed to increased productivity, while higher fatigue levels resulted in decreased output. Mixed scenarios, where different profiles were assigned to workstations, highlighted the importance of strategic worker assignment.
+#### 4.3 Productivity Analysis
+The productivity analysis revealed that profiles with lower probabilities of remaining in non-productive zones and faster learning rates achieved higher throughput. For example, a profile with a punctuality matrix \( P_1 \) and a learning rate \( \beta = 0.1 \) outperformed others with higher fatigue levels or lower punctuality.
+### 5. Conclusion and Future Work
+This study presents a comprehensive approach to modeling worker behavior in production systems, focusing on punctuality, fatigue, and experience. The developed simulator demonstrates the significant impact of these factors on productivity. Future work will involve applying the models to real case studies and refining transition matrices and functional parameters based on empirical data.
+### References
+- Bailly, A., et al. (2020). Human’s new roles to ensure resilience of industrial cyber-physical systems. IEEE ICPS.
+- Chen, N., et al. (2022). Analysis of assembly-time performance in manufacturing operations with collaborative robots. International Journal of Production Research.
+- Garrido-Hidalgo, C., et al. (2018). IoT heterogeneous mesh network deployment for human-in-the-loop challenges towards a social and sustainable industry 4.0. IEEE Access.
+- Messaadia, M., et al. (2016). PLM adoption in SMEs context. Computer-Aided Design and Applications.
+- Zanchettin, A.M., et al. (2018). Prediction of human activity patterns for human–robot collaborative assembly tasks. IEEE Transactions on Industrial Informatics.
