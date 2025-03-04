@@ -33,6 +33,10 @@ to-report netlogoshow [data]
   show item 0  data
   report 0
 end
+to-report outputprint [data]
+  output-print item 0  data
+  report 0
+end
 to-report resize_world [data]
   resize-world item 0  data item 1  data item 2  data item 3  data
   report 0
@@ -205,6 +209,13 @@ NIL
 NIL
 NIL
 1
+
+OUTPUT
+1090
+102
+1608
+249
+13
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -6,8 +6,8 @@ t = np.linspace(0, 2000, 1000)
 
 # Worker speed values for different conditions (M0, f=0, with different decay factors)
 speed_0 = np.ones_like(t)
-speed_001 = np.exp(-0.001 * (t % 500))  # Decay factor 0.001, reset every 500 units of time
-speed_002 = np.exp(-0.002 * (t % 500))  # Decay factor 0.002, reset every 500 units of time
+speed_001 = 1-np.exp(-0.001 * (t % 500))  # Decay factor 0.001, reset every 500 units of time
+speed_002 = 1- np.exp(-0.002 * (t % 500))  # Decay factor 0.002, reset every 500 units of time
 
 # Plotting the curves
 plt.plot(t, speed_0, label="$\lambda_F$=0")

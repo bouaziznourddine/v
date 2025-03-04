@@ -90,6 +90,12 @@ def netlogoshow(nl: NetLogoInterface, word: str) -> str:
     """
     cmd = "netlogoshow " + list2nllist([word])
     return nl.report(cmd)
+def nl_output_print (nl: NetLogoInterface, word: str) -> str:
+    """
+    Affiche un message dans NetLogo en appelant la procédure 'netlogoshow'.
+    """
+    cmd = "outputprint " + list2nllist([word])
+    return nl.report(cmd)
 
 
 def resize_world(nl: NetLogoInterface, x0, xf, y0, yf) -> None:
