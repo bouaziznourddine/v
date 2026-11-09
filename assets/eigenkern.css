@@ -384,3 +384,12 @@ p { margin-bottom: 1em; }
   .ek-akkordeon__frage { font-size: 17px; }
   .ek-fuss__spalten { grid-template-columns: 1fr; }
 }
+
+
+/* Kennzeichnung als Entwurf: bleibt beim Scrollen sichtbar */
+.ek-entwurf {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--ek-anthrazit); color: #fff;
+  font-size: 14px; font-weight: 560; line-height: 1.4; text-align: center;
+  padding: 9px 16px;
+}
