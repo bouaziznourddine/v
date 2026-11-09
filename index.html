@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIGENKERN: Ihre eigene KI. Im eigenen Haus.</title>
+<link rel="stylesheet" href="assets/bootstrap.min.css">
+<link rel="stylesheet" href="assets/eigenkern.css">
+</head>
+<body>
+
+<!-- Symbole: 24-px-Raster, 1,5 px Linie, eckige Enden -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-recht" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 4.5v15.5M8 20h8M4.5 7h15M4.5 7 2.5 13M4.5 7l2 6M19.5 7l-2 6M19.5 7l2 6M2 13h5a2.5 2.5 0 0 1-5 0zM17 13h5a2.5 2.5 0 0 1-5 0z"/></g></symbol>
+    <symbol id="i-steuer" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5.5 2.5h9l4 4v15h-13z"/><path d="M14.5 2.5v4h4M9 17.5l6-6"/><circle cx="9.5" cy="12" r="1.3"/><circle cx="14.5" cy="17" r="1.3"/></g></symbol>
+    <symbol id="i-medizin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M9 3.5h6V9h5.5v6H15v5.5H9V15H3.5V9H9z"/></g></symbol>
+    <symbol id="i-energie" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 20.5h19M5 20.5v-7h14v7M5 13.5a7 5 0 0 1 14 0M12 8.5V4.5h4"/></g></symbol>
+    <symbol id="i-industrie" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M10.26 5.01 L10.66 2.49 L13.34 2.49 L13.74 5.01 L15.71 5.83 L17.78 4.33 L19.67 6.22 L18.17 8.29 L18.99 10.26 L21.51 10.66 L21.51 13.34 L18.99 13.74 L18.17 15.71 L19.67 17.78 L17.78 19.67 L15.71 18.17 L13.74 18.99 L13.34 21.51 L10.66 21.51 L10.26 18.99 L8.29 18.17 L6.22 19.67 L4.33 17.78 L5.83 15.71 L5.01 13.74 L2.49 13.34 L2.49 10.66 L5.01 10.26 L5.83 8.29 L4.33 6.22 L6.22 4.33 L8.29 5.83 Z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+    <symbol id="i-bildung" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 6.5C10 5 6.5 4.7 3 5.3v13.5c3.5-.6 7-.3 9 1.2 2-1.5 5.5-1.8 9-1.2V5.3c-3.5-.6-7-.3-9 1.2zM12 6.5V20"/></g></symbol>
+    <symbol id="i-land" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 21.5V6.5M12 9.5c-2.6 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 9.5c2.6 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 14c-2.6 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 14c2.6 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 18.5c-2.6 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 18.5c2.6 0 4-1.5 4-4-2.5 0-4 1.5-4 4z"/></g></symbol>
+    <symbol id="i-handwerk" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12.9 4.1 20 11.1 17.1 14 10.1 6.9zM13.6 10.4 3.5 20.5"/></g></symbol>
+    <symbol id="i-verwaltung" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 9 12 4l9 5zM5.5 9.5v8M9.8 9.5v8M14.2 9.5v8M18.5 9.5v8M3 17.5h18M2 20.5h20"/></g></symbol>
+    <symbol id="i-winkel" viewBox="0 0 12 12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="i-uhr" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.5l3.5 2"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="i-menue" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="logo-zeichen" viewBox="0 0 28 28"><rect x="1" y="1" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"/><rect x="10" y="10" width="8" height="8" style="fill:var(--ek-logo-kern,#1f4d3d)"/></symbol>
+    <pattern id="schraffur" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#fff"/><line x1="0" y1="0" x2="0" y2="7" stroke="#8e9793" stroke-width="1"/></pattern>
+    <pattern id="erde" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#8e9793" stroke-width="1"/></pattern>
+    <marker id="spitze" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 9 5 0 9z" fill="#293133"/></marker>
+    <marker id="spitze-moos" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 9 5 0 9z" fill="#1f4d3d"/></marker>
+  </defs>
+</svg>
+
+<a class="visually-hidden-focusable" href="#inhalt">Zum Inhalt springen</a>
+
+<div class="ek-hinweisleiste">
+  <div class="container ek-hinweisleiste__innen">
+    <p class="m-0">Branchenpartner gesucht: Sie kennen Ihre Branche, wir bringen die lokale KI. <a href="#">Partner werden</a></p>
+    <p class="m-0 ek-hinweisleiste__lang"><a href="#">Kontakt</a><a href="#" lang="en">English</a></p>
+  </div>
+</div>
+
+<header class="ek-kopf">
+  <div class="container ek-kopf__innen">
+    <a class="ek-logo" href="#" aria-label="EIGENKERN, zur Startseite">
+      <svg width="28" height="28" aria-hidden="true"><use href="#logo-zeichen"/></svg>
+      <span class="ek-logo__wort">EIGENKERN</span>
+      <span class="ek-logo__zusatz">Lokale KI</span>
+    </a>
+    <nav aria-label="Hauptmenü">
+      <ul class="ek-nav">
+        <li><a href="#">Was wir tun <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+        <li><a href="#">Branchen <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+        <li><a href="#">Lösungen <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+        <li><a href="#">Partner <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+        <li><a href="#">Einblicke <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+        <li><a href="#">Wer wir sind <svg aria-hidden="true"><use href="#i-winkel"/></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ek-kopf__rechts">
+      <a class="ek-btn ek-btn--voll ek-btn--klein ek-nur-gross" href="#">Gespräch vereinbaren</a>
+      <button class="ek-menueknopf" type="button"><svg width="20" height="20" aria-hidden="true"><use href="#i-menue"/></svg>Menü</button>
+    </div>
+  </div>
+</header>
+
+<main id="inhalt">
+
+<!-- ============ Hero: Zeichnung mit Stückliste und Schriftfeld ============ -->
+<section class="ek-hero" id="start">
+  <div class="container">
+    <h1 class="ek-h1"><span>Ihre eigene KI.</span> <span>Im eigenen Haus.</span></h1>
+    <div class="row g-5">
+      <div class="col-lg-5 ek-hero__text">
+        <p class="ek-lead">Ein kleiner Rechner in Ihrem Betrieb liest Ihre Unterlagen und beantwortet Fragen daraus, mit Fundstelle zum Nachprüfen. Die Originale verlassen das Haus nicht.</p>
+        <p class="ek-hero__unter">Für die großen Cloud-KIs gibt es auf Wunsch den Wächter: Hinaus geht dann nur eine geprüfte Schattenkopie ohne Namen.</p>
+        <div class="ek-hero__aktionen">
+          <a class="ek-btn ek-btn--voll" href="#">Mit eigenen Daten testen</a>
+          <a class="ek-btn ek-btn--rahmen" href="#branchen">Meine Branche wählen</a>
+        </div>
+        <p class="ek-hero__zusage"><svg width="20" height="20" aria-hidden="true"><use href="#i-uhr"/></svg><span>Bei einem Defekt bekommen Sie innerhalb von 24 Stunden ein Austauschgerät über unseren Hardwarepartner Wortmann.</span></p>
+      </div>
+
+      <div class="col-lg-7">
+        <figure class="m-0">
+          <svg class="ek-zeichnung d-none d-lg-block" viewBox="0 0 720 500" role="img" aria-labelledby="zeichnung-titel">
+            <title id="zeichnung-titel">Schnittzeichnung: Ein Haus mit Aktenregal, dem KI-Rechner MLKI und einem Arbeitsplatz. Ein Wächter in der Außenwand lässt nur die Schattenkopie zur Cloud-KI hinaus.</title>
+            <!-- Rahmen -->
+            <rect x="0.75" y="0.75" width="718.5" height="498.5" fill="#fff" stroke="#293133" stroke-width="1.5"/>
+            <path d="M360 0V12M360 488V500M0 250H12M708 250H720" stroke="#293133" stroke-width="1.5"/>
+            <path d="M120 0V6M240 0V6M480 0V6M600 0V6M120 494V500M240 494V500M480 494V500M600 494V500M0 125H6M0 375H6M714 125H720M714 375H720" stroke="#8e9793"/>
+            <!-- Gelände -->
+            <rect x="24" y="420" width="672" height="12" fill="url(#erde)"/>
+            <path d="M24 420H696" stroke="#293133" stroke-width="1.25"/>
+            <!-- Haus im Schnitt -->
+            <g stroke="#293133" stroke-width="1.25">
+              <rect x="56" y="190" width="14" height="230" fill="url(#schraffur)"/>
+              <rect x="430" y="190" width="14" height="230" fill="url(#schraffur)"/>
+              <rect x="70" y="404" width="360" height="16" fill="url(#schraffur)"/>
+              <path d="M40 196 250 70 460 196V212.3L250 86.3 40 212.3Z" fill="url(#schraffur)" stroke-linejoin="miter"/>
+            </g>
+            <text x="250" y="152" text-anchor="middle" font-size="15" font-weight="500" fill="#5e6966">Ihr Haus</text>
+            <!-- Regal mit Ordnern -->
+            <g stroke="#293133" fill="none" stroke-width="1.25">
+              <rect x="86" y="226" width="140" height="178"/>
+              <path d="M86 316H226"/>
+            </g>
+            <g stroke="#293133" stroke-width="1">
+              <g><rect x="93" y="234" width="22" height="82" fill="#e3e7e4"/><rect x="97" y="242" width="14" height="30" fill="#fff" stroke-width=".75"/><circle cx="104" cy="300" r="4" fill="#fff" stroke-width=".75"/></g>
+              <g><rect x="118" y="234" width="22" height="82" fill="#e3e7e4"/><rect x="122" y="242" width="14" height="30" fill="#fff" stroke-width=".75"/><circle cx="129" cy="300" r="4" fill="#fff" stroke-width=".75"/></g>
+              <g><rect x="143" y="234" width="22" height="82" fill="#e3e7e4"/><rect x="147" y="242" width="14" height="30" fill="#fff" stroke-width=".75"/><circle cx="154" cy="300" r="4" fill="#fff" stroke-width=".75"/></g>
+              <g><rect x="168" y="234" width="22" height="82" fill="#e3e7e4"/><rect x="172" y="242" width="14" height="30" fill="#fff" stroke-width=".75"/><circle cx="179" cy="300" r="4" fill="#fff" stroke-width=".75"/></g>
+              <g><rect x="193" y="234" width="22" height="82" fill="#e3e7e4"/><rect x="197" y="242" width="14" height="30" fill="#fff" stroke-width=".75"/><circle cx="204" cy="300" r="4" fill="#fff" stroke-width=".75"/></g>
+            </g>
+            <!-- MLKI-Rechner -->
+            <rect x="108" y="350" width="96" height="54" rx="2" fill="#f5f6f5" stroke="#293133" stroke-width="1.25"/>
+            <circle cx="124" cy="364" r="3.6" fill="#1f4d3d"/>
+            <circle cx="124" cy="388" r="5" fill="#fff" stroke="#293133"/>
+            <path d="M124 384.5v4" stroke="#293133"/>
+            <path d="M150 362v30M156 362v30M162 362v30M168 362v30M174 362v30M180 362v30M186 362v30M192 362v30" stroke="#8e9793" stroke-width="1.2"/>
+            <!-- Arbeitsplatz -->
+            <g stroke="#293133" stroke-width="1.25">
+              <rect x="288" y="330" width="122" height="8" fill="#fff"/>
+              <path d="M296 338V404M402 338V404"/>
+              <rect x="318" y="262" width="74" height="50" rx="2" fill="#fff"/>
+              <rect x="323" y="267" width="64" height="38" fill="#f5f6f5" stroke-width=".75"/>
+              <path d="M355 312V326"/>
+              <rect x="341" y="326" width="28" height="4" fill="#293133"/>
+            </g>
+            <path d="M329 276H374M329 283H380M329 290H362" stroke="#8e9793" stroke-width="1.6"/>
+            <path d="M329 298H350" stroke="#1f4d3d" stroke-width="2"/>
+            <!-- Datenweg im Haus, Wächter in der Wand -->
+            <circle cx="204" cy="366" r="2.6" fill="#1f4d3d"/>
+            <path d="M204 366H262V236H419" fill="none" stroke="#1f4d3d" stroke-width="1.6" stroke-dasharray="6 4"/>
+            <rect x="428.5" y="221" width="17" height="30" fill="#fff"/>
+            <path d="M430 221.5H444M430 250.5H444" stroke="#293133" stroke-width="1.25"/>
+            <path d="M421 226 437 236 421 246ZM453 226 437 236 453 246Z" fill="#eef0ef" stroke="#293133" stroke-width="1.25" stroke-linejoin="miter"/>
+            <!-- Schattenkopie nach außen -->
+            <path d="M457 236H608V161" fill="none" stroke="#293133" stroke-width="1.8" stroke-dasharray="0.1 5.5" stroke-linecap="round" marker-start="url(#spitze)" marker-end="url(#spitze)"/>
+            <text x="470" y="227" font-size="14" font-weight="560" fill="#293133">nur Schattenkopie</text>
+            <text x="470" y="254" font-size="14" fill="#5e6966">Antwort zurück</text>
+            <!-- Cloud-KI -->
+            <path d="M548 158H664A24 24 0 0 0 668 110.4 32 32 0 0 0 611 94 25 25 0 0 0 570 104 30 30 0 0 0 548 158Z" fill="#fff" stroke="#293133" stroke-width="1.25"/>
+            <text x="608" y="136" text-anchor="middle" font-size="15" font-weight="620" fill="#293133">Cloud-KI</text>
+            <!-- Positionsnummern -->
+            <g stroke="#293133" stroke-width="1" fill="none">
+              <path d="M140 377V447M156 256V209M380 334V447M447 242 481.6 291M681.4 115.6 690.3 90.3"/>
+            </g>
+            <g fill="#293133"><circle cx="140" cy="377" r="2.2"/><circle cx="156" cy="256" r="2.2"/><circle cx="380" cy="334" r="2.2"/><circle cx="447" cy="242" r="2.2"/><circle cx="681.4" cy="115.6" r="2.2"/></g>
+            <g fill="#fff" stroke="#293133"><circle cx="140" cy="458" r="11"/><circle cx="156" cy="198" r="11"/><circle cx="380" cy="458" r="11"/><circle cx="488" cy="300" r="11"/><circle cx="694" cy="80" r="11"/></g>
+            <g font-size="13" font-weight="650" fill="#293133" text-anchor="middle">
+              <text x="140" y="462.6">1</text><text x="156" y="202.6">2</text><text x="380" y="462.6">3</text><text x="488" y="304.6">4</text><text x="694" y="84.6">5</text>
+            </g>
+          </svg>
+          <!-- Hochformat-Fassung der Zeichnung für Mobilgeräte -->
+          <svg class="ek-zeichnung d-lg-none" viewBox="0 58 360 352" role="img" aria-label="Schnittzeichnung: Haus mit Aktenregal, KI-Rechner und Arbeitsplatz. Der Wächter in der Wand lässt nur die Schattenkopie zur Cloud-KI hinaus.">
+            <rect x="0.75" y="58.75" width="358.5" height="350.5" fill="#fff" stroke="#293133" stroke-width="1.5"/>
+            <path d="M180 58V68M180 400V410M0 234H10M350 234H360" stroke="#293133" stroke-width="1.5"/>
+            <rect x="12" y="360" width="336" height="8" fill="url(#erde)"/>
+            <path d="M12 360H348" stroke="#293133" stroke-width="1.25"/>
+            <g stroke="#293133" stroke-width="1.25">
+              <rect x="16" y="212" width="10" height="148" fill="url(#schraffur)"/>
+              <rect x="214" y="212" width="10" height="148" fill="url(#schraffur)"/>
+              <rect x="26" y="348" width="188" height="12" fill="url(#schraffur)"/>
+              <path d="M12 214 120 124 228 214V227L120 137 12 227Z" fill="url(#schraffur)"/>
+            </g>
+            <text x="120" y="176" text-anchor="middle" font-size="13" font-weight="500" fill="#5e6966">Ihr Haus</text>
+            <g stroke="#293133" fill="none" stroke-width="1.25"><rect x="36" y="236" width="90" height="112"/><path d="M36 294H126"/></g>
+            <g stroke="#293133" stroke-width="1">
+              <rect x="42" y="242" width="18" height="52" fill="#e3e7e4"/><rect x="45" y="248" width="12" height="20" fill="#fff" stroke-width=".75"/><circle cx="51" cy="283" r="3" fill="#fff" stroke-width=".75"/>
+              <rect x="63" y="242" width="18" height="52" fill="#e3e7e4"/><rect x="66" y="248" width="12" height="20" fill="#fff" stroke-width=".75"/><circle cx="72" cy="283" r="3" fill="#fff" stroke-width=".75"/>
+              <rect x="84" y="242" width="18" height="52" fill="#e3e7e4"/><rect x="87" y="248" width="12" height="20" fill="#fff" stroke-width=".75"/><circle cx="93" cy="283" r="3" fill="#fff" stroke-width=".75"/>
+              <rect x="105" y="242" width="18" height="52" fill="#e3e7e4"/><rect x="108" y="248" width="12" height="20" fill="#fff" stroke-width=".75"/><circle cx="114" cy="283" r="3" fill="#fff" stroke-width=".75"/>
+            </g>
+            <rect x="46" y="306" width="72" height="42" rx="2" fill="#f5f6f5" stroke="#293133" stroke-width="1.25"/>
+            <circle cx="58" cy="317" r="3.2" fill="#1f4d3d"/>
+            <circle cx="58" cy="334" r="4.2" fill="#fff" stroke="#293133"/>
+            <path d="M84 314v26M89 314v26M94 314v26M99 314v26M104 314v26M109 314v26" stroke="#8e9793" stroke-width="1.2"/>
+            <g stroke="#293133" stroke-width="1.25">
+              <rect x="156" y="258" width="40" height="28" rx="1.5" fill="#fff"/>
+              <path d="M176 286V294"/>
+              <rect x="168" y="294" width="16" height="3" fill="#293133"/>
+              <rect x="146" y="297" width="60" height="5" fill="#fff"/>
+              <path d="M150 302V348M202 302V348"/>
+            </g>
+            <path d="M161 266H186M161 272H190M161 278H180" stroke="#8e9793" stroke-width="1.4"/>
+            <circle cx="118" cy="316" r="2.4" fill="#1f4d3d"/>
+            <path d="M118 316H136V236H205" fill="none" stroke="#1f4d3d" stroke-width="1.6" stroke-dasharray="5 4"/>
+            <rect x="212.5" y="225" width="13" height="22" fill="#fff"/>
+            <path d="M214 225.5H224M214 246.5H224" stroke="#293133" stroke-width="1.25"/>
+            <path d="M207 228 219 236 207 244ZM231 228 219 236 231 244Z" fill="#eef0ef" stroke="#293133" stroke-width="1.25"/>
+            <path d="M235 236H288V156" fill="none" stroke="#293133" stroke-width="1.8" stroke-dasharray="0.1 5" stroke-linecap="round" marker-start="url(#spitze)" marker-end="url(#spitze)"/>
+            <text x="242" y="262" font-size="13" font-weight="560" fill="#293133">nur Schattenkopie</text>
+            <text x="242" y="280" font-size="13" fill="#5e6966">Antwort zurück</text>
+            <path d="M250 152H324A18 18 0 0 0 328 116.4 24 24 0 0 0 288 104 19 19 0 0 0 256 110.6 22 22 0 0 0 250 152Z" fill="#fff" stroke="#293133" stroke-width="1.25"/>
+            <text x="289" y="138" text-anchor="middle" font-size="14" font-weight="620" fill="#293133">Cloud-KI</text>
+            <g stroke="#293133" fill="none"><path d="M72 324V378M72 258V216M190 300V378M222 243 240 292M335 118.6 337.1 96"/></g>
+            <g fill="#293133"><circle cx="72" cy="324" r="2"/><circle cx="72" cy="258" r="2"/><circle cx="190" cy="299.5" r="2"/><circle cx="222" cy="243" r="2"/><circle cx="335" cy="118.6" r="2"/></g>
+            <g fill="#fff" stroke="#293133"><circle cx="72" cy="388" r="10"/><circle cx="72" cy="206" r="10"/><circle cx="190" cy="388" r="10"/><circle cx="246" cy="300" r="10"/><circle cx="338" cy="86" r="10"/></g>
+            <g font-size="12" font-weight="650" fill="#293133" text-anchor="middle"><text x="72" y="392.2">1</text><text x="72" y="210.2">2</text><text x="190" y="392.2">3</text><text x="246" y="304.2">4</text><text x="338" y="90.2">5</text></g>
+          </svg>
+          <figcaption class="ek-stueckliste">
+            <div><span class="ek-pos">1</span><span>MLKI, der Rechner im Haus</span></div>
+            <div><span class="ek-pos">2</span><span>Ihre Ordner und Unterlagen</span></div>
+            <div><span class="ek-pos">3</span><span>Arbeitsplatz, auch Tablet oder Handy</span></div>
+            <div><span class="ek-pos">4</span><span>Wächter, nur im Hybridbetrieb</span></div>
+            <div><span class="ek-pos">5</span><span>Cloud-KI, sieht nur den Schatten</span></div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <dl class="ek-schriftfeld">
+      <div><dt>Standort</dt><dd>Ihr Haus<small>oder ein Server nur für Sie in Deutschland</small></dd></div>
+      <div><dt>Kosten pro Frage</dt><dd>0,00 €</dd></div>
+      <div><dt>Kosten pro Kopf</dt><dd>0,00 €</dd></div>
+      <div><dt>Antworten</dt><dd>mit Fundstelle</dd></div>
+      <div><dt>Ohne Internet</dt><dd>läuft weiter</dd></div>
+      <div><dt>Leckrate am Ausgang</dt><dd>0,00 %<small>im Hybridbetrieb, gemessen</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ 1 Branchen ============ -->
+<section class="ek-abschnitt" id="branchen">
+  <div class="container">
+    <div class="row g-5 align-items-end ek-abschnittkopf">
+      <div class="col-lg-7">
+        <div class="ek-kapitelzeile"><span class="ek-kapitel" aria-hidden="true">1</span><h2 class="ek-h2">Wählen Sie Ihr Fachgebiet.</h2></div>
+      </div>
+      <div class="col-lg-5">
+        <p>Auf Ihrer Branchenseite finden Sie Anwendungsfälle, Rechtliches und die Fragen, die Ihre Kollegen uns am häufigsten stellen.</p>
+      </div>
+    </div>
+
+    <div class="ek-einzug">
+      <div class="row row-cols-1 row-cols-lg-3 gx-5 gy-5">
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-recht"/></svg><div><h3 class="ek-h3">Rechtsanwälte und Notare</h3><p>Akten, Schriftsätze und die eigene Rechtsprechungssammlung befragen.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-steuer"/></svg><div><h3 class="ek-h3">Steuerberatung</h3><p>Mandantenfragen, Belegeingang und Fristen aus den eigenen Akten beantworten.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-medizin"/></svg><div><h3 class="ek-h3">Medizin und Praxen</h3><p>QM-Handbuch, Hygienepläne und Dienstplanung auf Abruf. Für die Organisation, nicht für Diagnosen.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-energie"/></svg><div><h3 class="ek-h3">Energie und Biogas</h3><p>Fragen zur Anlage aus Messdaten und Unterlagen beantworten. Unser eigenes Fachgebiet.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-industrie"/></svg><div><h3 class="ek-h3">Industrie und Maschinenbau</h3><p>Handbücher, Wartung und Qualitätsunterlagen zusammenführen und befragen.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-bildung"/></svg><div><h3 class="ek-h3">Bildung</h3><p>Unterlagen und Lernmaterial befragbar machen, in der eigenen Umgebung.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-land"/></svg><div><h3 class="ek-h3">Landwirtschaft</h3><p>Hofunterlagen, Verträge und Betriebsdaten durchsuchen, ohne dass sie den Hof verlassen.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-handwerk"/></svg><div><h3 class="ek-h3">Handwerk</h3><p>Aufträge, Fotos, Angebote und Datenblätter an einem Ort, auf dem Handy wie im Büro.</p><a href="#">Zur Branche</a></div></article></div>
+        <div class="col"><article class="ek-eintrag"><svg aria-hidden="true"><use href="#i-verwaltung"/></svg><div><h3 class="ek-h3">Architektur, Verwaltung, Kommunen</h3><p>Pläne, Gutachten und Satzungen durchsuchen, Protokolle als Entwurf.</p><a href="#">Zur Branche</a></div></article></div>
+      </div>
+      <div class="ek-registerfuss">
+        <p>In jeder Branche suchen wir Partner, die den Alltag kennen. Sie bringen das Fachwissen, wir die lokale KI.</p>
+        <a class="ek-btn ek-btn--rahmen ek-btn--klein" href="#">Branchenpartner werden</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 Drei Wege ============ -->
+<section class="ek-abschnitt ek-abschnitt--flaeche" id="wege">
+  <div class="container">
+    <div class="row g-5 align-items-end ek-abschnittkopf">
+      <div class="col-lg-7">
+        <div class="ek-kapitelzeile"><span class="ek-kapitel" aria-hidden="true">2</span><h2 class="ek-h2">Lokal, Hybrid oder eigener Server: Sie entscheiden.</h2></div>
+      </div>
+      <div class="col-lg-5">
+        <p>Alle drei Wege erklären wir Ihnen vorab im Einführungsvideo, mit Vor- und Nachteilen. Erst dann legen Sie sich fest.</p>
+      </div>
+    </div>
+
+    <div class="ek-einzug">
+      <div class="row row-cols-1 row-cols-lg-3 gx-5 gy-5">
+        <!-- Lokal -->
+        <div class="col">
+          <article class="ek-weg">
+            <div class="ek-weg__bild">
+              <svg viewBox="0 0 360 210" role="img" aria-label="Haus mit Ordnern und KI-Rechner, keine Verbindung nach außen">
+                <rect x="24" y="176" width="312" height="9" fill="url(#erde)"/>
+                <path d="M24 176H336" stroke="#293133" stroke-width="1.25"/>
+                <g stroke="#293133" stroke-width="1.25">
+                  <rect x="100" y="100" width="8" height="76" fill="url(#schraffur)"/>
+                  <rect x="252" y="100" width="8" height="76" fill="url(#schraffur)"/>
+                  <rect x="108" y="168" width="144" height="8" fill="url(#schraffur)"/>
+                  <path d="M88 108 180 40 272 108V118L180 50 88 118Z" fill="url(#schraffur)"/>
+                </g>
+                <g stroke="#293133" stroke-width="1"><rect x="122" y="126" width="11" height="42" fill="#e3e7e4"/><rect x="135" y="126" width="11" height="42" fill="#e3e7e4"/><rect x="148" y="126" width="11" height="42" fill="#e3e7e4"/><rect x="161" y="126" width="11" height="42" fill="#e3e7e4"/></g>
+                <rect x="182" y="138" width="58" height="30" rx="1.5" fill="#f5f6f5" stroke="#293133" stroke-width="1.25"/>
+                <circle cx="192" cy="148" r="2.8" fill="#1f4d3d"/>
+                <path d="M210 145v16M215 145v16M220 145v16M225 145v16M230 145v16" stroke="#8e9793"/>
+                <text x="180" y="90" text-anchor="middle" font-size="13" fill="#5e6966">Ihr Haus</text>
+              </svg>
+            </div>
+            <h3 class="ek-h3">Lokal</h3>
+            <p class="ek-weg__satz">Alles läuft auf dem Gerät in Ihrem Haus.</p>
+            <ul class="ek-liste">
+              <li>Ihre Unterlagen werden vor Ort gelesen und eingeordnet.</li>
+              <li>Das Gerät antwortet auch ohne Internet.</li>
+              <li>Sehr große Bestände liest auf Wunsch ein Rechenzentrum in Deutschland ein, mit Vertrag zur Auftragsverarbeitung.</li>
+            </ul>
+            <dl class="ek-weg__daten"><div><dt>Ihre Daten liegen</dt><dd>in Ihrem Haus</dd></div><div><dt>Große Cloud-KIs</dt><dd>nein</dd></div></dl>
+          </article>
+        </div>
+        <!-- Eigener Server -->
+        <div class="col">
+          <article class="ek-weg">
+            <div class="ek-weg__bild">
+              <svg viewBox="0 0 360 210" role="img" aria-label="Büro mit Arbeitsplatz, gesicherte Verbindung zu einem Rechenzentrum in Deutschland">
+                <rect x="24" y="176" width="312" height="9" fill="url(#erde)"/>
+                <path d="M24 176H336" stroke="#293133" stroke-width="1.25"/>
+                <g stroke="#293133" stroke-width="1.25">
+                  <rect x="40" y="118" width="6" height="58" fill="url(#schraffur)"/>
+                  <rect x="144" y="118" width="6" height="58" fill="url(#schraffur)"/>
+                  <rect x="46" y="170" width="98" height="6" fill="url(#schraffur)"/>
+                  <path d="M32 122 95 72 158 122V130L95 80 32 130Z" fill="url(#schraffur)"/>
+                  <rect x="64" y="148" width="62" height="5" fill="#fff"/>
+                  <path d="M69 153V170M121 153V170"/>
+                  <rect x="78" y="122" width="34" height="22" rx="1.5" fill="#fff"/>
+                  <path d="M95 144V148"/>
+                </g>
+                <g stroke="#293133" stroke-width="1.25">
+                  <rect x="198" y="98" width="7" height="78" fill="url(#schraffur)"/>
+                  <rect x="297" y="98" width="7" height="78" fill="url(#schraffur)"/>
+                  <rect x="192" y="90" width="118" height="8" fill="url(#schraffur)"/>
+                  <rect x="205" y="170" width="92" height="6" fill="url(#schraffur)"/>
+                  <rect x="220" y="110" width="30" height="60" fill="#f5f6f5"/>
+                  <rect x="258" y="110" width="30" height="60" fill="#f5f6f5"/>
+                </g>
+                <path d="M225 120H245M225 130H245M225 140H245M225 150H245M263 120H283M263 130H283M263 140H283M263 150H283" stroke="#8e9793"/>
+                <circle cx="226" cy="161" r="2.4" fill="#1f4d3d"/><circle cx="264" cy="161" r="2.4" fill="#1f4d3d"/>
+                <path d="M150 146H198" stroke="#293133" stroke-width="1.5"/>
+                <g stroke="#293133" stroke-width="1.25" fill="#fff"><path d="M168.5 140v-4a5.5 5.5 0 0 1 11 0v4" fill="none"/><rect x="165" y="140" width="18" height="13" rx="1"/></g>
+                <text x="95" y="203" text-anchor="middle" font-size="13" fill="#5e6966">Ihr Büro</text>
+                <text x="251" y="203" text-anchor="middle" font-size="13" fill="#5e6966">Rechenzentrum in Deutschland</text>
+              </svg>
+            </div>
+            <h3 class="ek-h3">Eigener Server</h3>
+            <p class="ek-weg__satz">Ihre KI läuft auf einem Server nur für Sie, in einem Rechenzentrum in Deutschland.</p>
+            <ul class="ek-liste">
+              <li>Kein Gerät vor Ort nötig.</li>
+              <li>Zugriff von Rechner, Tablet oder Handy über einen gesicherten Zugang.</li>
+              <li>Mit Vertrag zur Auftragsverarbeitung.</li>
+            </ul>
+            <dl class="ek-weg__daten"><div><dt>Ihre Daten liegen</dt><dd>in Deutschland, nur für Sie</dd></div><div><dt>Große Cloud-KIs</dt><dd>nein</dd></div></dl>
+          </article>
+        </div>
+        <!-- Hybrid -->
+        <div class="col">
+          <article class="ek-weg">
+            <div class="ek-weg__bild">
+              <svg viewBox="0 0 360 210" role="img" aria-label="Haus mit KI-Rechner, ein Wächter in der Wand schickt nur die Schattenkopie zur Cloud-KI">
+                <rect x="24" y="176" width="312" height="9" fill="url(#erde)"/>
+                <path d="M24 176H336" stroke="#293133" stroke-width="1.25"/>
+                <g stroke="#293133" stroke-width="1.25">
+                  <rect x="60" y="100" width="8" height="76" fill="url(#schraffur)"/>
+                  <rect x="192" y="100" width="8" height="76" fill="url(#schraffur)"/>
+                  <rect x="68" y="168" width="124" height="8" fill="url(#schraffur)"/>
+                  <path d="M48 108 130 40 212 108V118.4L130 50.4 48 118.4Z" fill="url(#schraffur)"/>
+                </g>
+                <g stroke="#293133" stroke-width="1"><rect x="78" y="126" width="11" height="42" fill="#e3e7e4"/><rect x="91" y="126" width="11" height="42" fill="#e3e7e4"/><rect x="104" y="126" width="11" height="42" fill="#e3e7e4"/></g>
+                <rect x="124" y="138" width="54" height="30" rx="1.5" fill="#f5f6f5" stroke="#293133" stroke-width="1.25"/>
+                <circle cx="134" cy="148" r="2.8" fill="#1f4d3d"/>
+                <path d="M152 145v16M157 145v16M162 145v16M167 145v16" stroke="#8e9793"/>
+                <path d="M160 138V122H182" fill="none" stroke="#1f4d3d" stroke-width="1.5" stroke-dasharray="5 3.5"/>
+                <rect x="191" y="111" width="10" height="22" fill="#fff"/>
+                <path d="M192 111.5H200M192 132.5H200" stroke="#293133" stroke-width="1.25"/>
+                <path d="M184 114 196 122 184 130ZM208 114 196 122 208 130Z" fill="#eef0ef" stroke="#293133" stroke-width="1.25"/>
+                <path d="M212 122H292V103" fill="none" stroke="#293133" stroke-width="1.7" stroke-dasharray="0.1 5" stroke-linecap="round" marker-end="url(#spitze)"/>
+                <path d="M264 101H322A17 17 0 0 0 326 67.4 23 23 0 0 0 288 58 18 18 0 0 0 258 66 19 19 0 0 0 264 101Z" fill="#fff" stroke="#293133" stroke-width="1.25"/>
+                <text x="293" y="88" text-anchor="middle" font-size="13" font-weight="600" fill="#293133">Cloud-KI</text>
+                <text x="216" y="141" font-size="12.5" fill="#293133">Schattenkopie</text>
+                <text x="130" y="90" text-anchor="middle" font-size="13" fill="#5e6966">Ihr Haus</text>
+              </svg>
+            </div>
+            <h3 class="ek-h3">Hybrid</h3>
+            <p class="ek-weg__satz">Das Gerät in Ihrem Haus bleibt der Kern. Dazu nutzen Sie große Cloud-KIs wie ChatGPT oder Claude.</p>
+            <ul class="ek-liste">
+              <li>Der Wächter ersetzt Namen und vertrauliche Angaben durch Platzhalter.</li>
+              <li>Die Antwort wird bei Ihnen wieder mit den echten Angaben zusammengeführt.</li>
+              <li>Wächter und Schattenkopie buchen Sie zusätzlich.</li>
+            </ul>
+            <dl class="ek-weg__daten"><div><dt>Ihre Daten liegen</dt><dd>in Ihrem Haus</dd></div><div><dt>Große Cloud-KIs</dt><dd>ja, mit Schattenkopie</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 Wächter ============ -->
+<section class="ek-abschnitt ek-abschnitt--dunkel" id="waechter">
+  <div class="container">
+    <div class="row g-5 ek-waechter-text">
+      <div class="col-lg-7">
+        <div class="ek-kapitelzeile"><span class="ek-kapitel" aria-hidden="true">3</span><h2 class="ek-h2">Ein Schatten hinaus ist besser als gar nichts.</h2></div>
+      </div>
+      <div class="col-lg-5">
+        <p>Die großen Cloud-KIs werden rasant besser: schnell, bequem und stark bei schwierigen Aufgaben. Ihre Mandanten-, Patienten- und Geschäftsdaten wollen Sie ihnen trotzdem nicht überlassen.</p>
+        <p class="mb-0">Deshalb schickt der Wächter nur eine Schattenkopie hinaus, in der Namen und vertrauliche Angaben durch Platzhalter ersetzt sind. Erst bei Ihnen kommen die echten Angaben wieder hinein.</p>
+      </div>
+    </div>
+
+    <div class="ek-ablauf">
+      <div class="ek-ablauf__zonen">
+        <span>Bei Ihnen im Haus</span>
+        <span class="ek-ablauf__zonen-mitte">Wächter</span>
+        <span>Außerhalb: die Cloud-KI Ihrer Wahl</span>
+      </div>
+      <div class="ek-ablauf__raster">
+        <!-- Reihe 1 -->
+        <div class="ek-blatt" style="grid-column:1;grid-row:1">
+          <div class="ek-blatt__kopf"><span class="ek-pos">1</span>Original bleibt bei Ihnen</div>
+          <p class="ek-blatt__dokument">Frau <mark class="ek-echt">Muster</mark> von der <mark class="ek-echt">Muster GmbH</mark> bittet um Rückruf zur Rechnung <mark class="ek-echt">RE-2026-0815</mark> über 4.800&nbsp;€.</p>
+          <p class="ek-blatt__notiz">Gelb markiert: echte Angaben. Sie verlassen das Haus nicht.</p>
+        </div>
+        <div class="ek-pfeil" style="grid-column:2;grid-row:1"><svg viewBox="0 0 56 24" aria-hidden="true"><path d="M10 12H44" stroke="#d4d9d6" stroke-width="1.5"/><path d="M39 6.5 45 12l-6 5.5" fill="none" stroke="#d4d9d6" stroke-width="1.5"/></svg></div>
+        <div class="ek-blatt" style="grid-column:3;grid-row:1">
+          <div class="ek-blatt__kopf"><span class="ek-pos">2</span>Wächter legt den Schatten an</div>
+          <p class="ek-blatt__dokument">Frau <span class="ek-platzhalter">Alpha</span> von der <span class="ek-platzhalter">Firma Beta</span> bittet um Rückruf zur Rechnung <span class="ek-platzhalter">Kennung 1</span> über 4.800&nbsp;€.</p>
+          <div class="ek-zuordnung">
+            <div class="ek-zuordnung__titel">Zuordnung, bleibt im Haus</div>
+            <table>
+              <tr><td>Muster</td><td><svg width="22" height="10" viewBox="0 0 22 10" aria-label="wird zu"><path d="M1 5H19M15 1.5 19.5 5 15 8.5" fill="none" stroke="#4e5754" stroke-width="1.4"/></svg></td><td>Alpha</td></tr>
+              <tr><td>Muster GmbH</td><td><svg width="22" height="10" viewBox="0 0 22 10" aria-label="wird zu"><path d="M1 5H19M15 1.5 19.5 5 15 8.5" fill="none" stroke="#4e5754" stroke-width="1.4"/></svg></td><td>Firma Beta</td></tr>
+              <tr><td>RE-2026-0815</td><td><svg width="22" height="10" viewBox="0 0 22 10" aria-label="wird zu"><path d="M1 5H19M15 1.5 19.5 5 15 8.5" fill="none" stroke="#4e5754" stroke-width="1.4"/></svg></td><td>Kennung 1</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="ek-mauer" aria-hidden="true">
+          <div class="ek-mauer__durchgang" style="grid-row:1">
+            <svg viewBox="0 0 120 44"><path d="M2 22H112" stroke="#fff" stroke-width="2" stroke-dasharray="0.1 6" stroke-linecap="round"/><path d="M107 16l7 6-7 6" fill="none" stroke="#fff" stroke-width="1.75"/><path d="M45 11 60 22 45 33ZM75 11 60 22 75 33Z" fill="#eef0ef" stroke="#293133" stroke-width="1.5"/></svg>
+          </div>
+          <div style="grid-row:2"></div>
+          <div class="ek-mauer__durchgang" style="grid-row:3">
+            <svg viewBox="0 0 120 44"><path d="M8 22H118" stroke="#fff" stroke-width="2" stroke-dasharray="0.1 6" stroke-linecap="round"/><path d="M13 16l-7 6 7 6" fill="none" stroke="#fff" stroke-width="1.75"/><path d="M45 11 60 22 45 33ZM75 11 60 22 75 33Z" fill="#eef0ef" stroke="#293133" stroke-width="1.5"/></svg>
+          </div>
+        </div>
+        <div class="ek-blatt ek-blatt--aussen" style="grid-column:5;grid-row:1">
+          <div class="ek-blatt__kopf"><span class="ek-pos">3</span>Cloud-KI arbeitet am Schatten</div>
+          <p class="ek-blatt__dokument">Frau <span class="ek-platzhalter">Alpha</span> von der <span class="ek-platzhalter">Firma Beta</span> bittet um Rückruf zur Rechnung <span class="ek-platzhalter">Kennung 1</span> über 4.800&nbsp;€.</p>
+          <p class="ek-blatt__notiz">Sie sieht keinen Namen und keine Rechnungsnummer.</p>
+        </div>
+
+        <!-- Reihe 2 -->
+        <div class="ek-verbinder ek-verbinder--zuordnung" style="grid-column:3;grid-row:2" aria-hidden="true"><span>Zuordnung</span></div>
+        <div class="ek-verbinder ek-verbinder--pfeil" style="grid-column:5;grid-row:2" aria-hidden="true"><span>schreibt den Entwurf</span></div>
+
+        <!-- Reihe 3 -->
+        <div class="ek-blatt ek-blatt--ergebnis" style="grid-column:1 / 4;grid-row:3">
+          <div class="ek-blatt__kopf"><span class="ek-pos">4</span>Antwort kommt zurück, mit den echten Angaben</div>
+          <p class="ek-blatt__dokument">Guten Tag Frau <mark class="ek-echt">Muster</mark>, gern rufen wir Sie morgen Vormittag zur Rechnung <mark class="ek-echt">RE-2026-0815</mark> zurück.</p>
+          <p class="ek-blatt__notiz">Der Wächter setzt die echten Angaben erst bei Ihnen wieder ein.</p>
+        </div>
+        <div class="ek-blatt ek-blatt--aussen" style="grid-column:5;grid-row:3">
+          <div class="ek-blatt__kopf ek-blatt__kopf--ohne">Entwurf der Cloud-KI</div>
+          <p class="ek-blatt__dokument">Guten Tag Frau <span class="ek-platzhalter">Alpha</span>, gern rufen wir Sie morgen Vormittag zur Rechnung <span class="ek-platzhalter">Kennung 1</span> zurück.</p>
+        </div>
+      </div>
+      <p class="ek-ablauf__beispiel">Beispiel mit erfundenen Angaben.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 gx-5 gy-4 ek-ablauf__fakten">
+      <div class="col"><h3>Leckrate am Ausgang: <span class="ek-wert">0,00&nbsp;%</span></h3><p>Wächter erkennen, die Richter-Stufe sperrt im Zweifel, die Heilung bereinigt. Messreihe offen einsehbar. Kein Verfahren garantiert 100&nbsp;%.</p></div>
+      <div class="col"><h3>Der Datenschreiber schreibt mit</h3><p>Jede Nachricht an eine Cloud-KI wird nummeriert und versiegelt abgelegt. Sie können jederzeit belegen, was hinausging.</p></div>
+      <div class="col"><h3>Ohne Hybrid geht nichts hinaus</h3><p>Wächter und Schattenkopie buchen Sie zusätzlich. <a href="#">Mehr zum Pseudomizer</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 Kosten ============ -->
+<section class="ek-abschnitt" id="kosten">
+  <div class="container">
+    <div class="row g-5 align-items-end ek-abschnittkopf">
+      <div class="col-lg-7">
+        <div class="ek-kapitelzeile"><span class="ek-kapitel" aria-hidden="true">4</span><h2 class="ek-h2">Einmal kaufen, nach Bedarf erweitern.</h2></div>
+      </div>
+      <div class="col-lg-5">
+        <p>Sie erwerben Hardware und Software. Danach zahlen Sie nichts pro Frage und nichts pro Kopf.</p>
+      </div>
+    </div>
+    <div class="ek-einzug">
+    <div class="row g-5">
+      <div class="col-lg-8">
+        <table class="ek-aufstellung">
+          <caption>Kostenaufstellung</caption>
+          <thead><tr><th scope="col">Pos.</th><th scope="col">Leistung</th><th scope="col">Abrechnung</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="ek-leistung">Hardware und Software<span>Das Gerät mit der lokalen KI, fertig vorbereitet</span></td><td>einmalig</td></tr>
+            <tr><td>2</td><td class="ek-leistung">Jede Frage an die KI</td><td><span class="ek-null">0,00 €</span></td></tr>
+            <tr><td>3</td><td class="ek-leistung">Jeder Nutzer in Ihrem Betrieb</td><td><span class="ek-null">0,00 €</span></td></tr>
+            <tr><td>4</td><td class="ek-leistung">Zusatzpakete nach Wahl<span>Rechnungsstellung, Mahnwesen, Kundenverwaltung (CRM), Branchenlösungen</span></td><td>monatlich,<br>einzeln kündbar</td></tr>
+            <tr><td>5</td><td class="ek-leistung">Erstes Einlesen großer Bestände<span>im Rechenzentrum in Deutschland</span></td><td>zusätzlich buchbar</td></tr>
+            <tr><td>6</td><td class="ek-leistung">Wächter und Schattenkopie<span>für den Hybridbetrieb</span></td><td>zusätzlich buchbar</td></tr>
+          </tbody>
+          <tfoot><tr><td></td><td>Ihr Preis</td><td>nach der Vorab-Analyse</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <aside class="ek-kasten">
+          <h3 class="ek-h3">Was kostet das bei Ihnen?</h3>
+          <p>Das sagen wir Ihnen nach der Vorab-Analyse: Wir prüfen Ihre Ordner und Dokumente und legen gemeinsam fest, was zuerst kommt.</p>
+          <a class="ek-btn ek-btn--voll" href="#">Vorab-Analyse anfragen</a>
+        </aside>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 Fragen ============ -->
+<section class="ek-abschnitt ek-abschnitt--flaeche" id="fragen">
+  <div class="container">
+    <div class="row g-5 align-items-end ek-abschnittkopf">
+      <div class="col-lg-7">
+        <div class="ek-kapitelzeile"><span class="ek-kapitel" aria-hidden="true">5</span><h2 class="ek-h2">Häufige Fragen</h2></div>
+      </div>
+      <div class="col-lg-5">
+        <p>Ihre Frage ist nicht dabei? Bringen Sie sie ins Gespräch mit, oder lesen Sie in unserer <a href="#">Hilfe</a> nach.</p>
+      </div>
+    </div>
+    <div class="ek-einzug">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="ek-akkordeon">
+          <div class="ek-akkordeon__eintrag">
+            <button class="ek-akkordeon__frage" aria-expanded="true">Wo liegen meine Daten?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-minus"/></svg></span></button>
+            <div class="ek-akkordeon__antwort"><p>Bei Ihnen im Haus, auf dem Gerät von Eigenkern. Oder auf einem Server nur für Sie, in einem Rechenzentrum in Deutschland. Bei Cloud-KIs liegen sie dagegen auf Servern des Anbieters, häufig im Ausland.</p></div>
+          </div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Lernt jemand mit meinen Daten?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Was kostet jede Frage, jeder weitere Nutzer?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Funktioniert das ohne Internet?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Kann ich trotzdem ChatGPT oder Claude nutzen?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Was passiert, wenn das Gerät ausfällt?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+          <div class="ek-akkordeon__eintrag"><button class="ek-akkordeon__frage" aria-expanded="false">Brauchen meine Mitarbeiter Vorkenntnisse?<span class="ek-akkordeon__zeichen"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Gespräch ============ -->
+<section class="ek-gespraech">
+  <div class="container">
+    <div class="row g-5 align-items-end">
+      <div class="col-lg-7">
+        <h2 class="ek-h2">Bringen Sie uns Ihr größtes Ärgernis mit.</h2>
+        <p>Ein Gespräch, ein echter Vorgang aus Ihrem Alltag. Daran zeigen wir, was die lokale KI bei Ihnen leistet.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="ek-gespraech__aktionen">
+          <a class="ek-btn ek-btn--hell" href="#">Gespräch vereinbaren</a>
+          <a class="ek-btn ek-btn--hellrahmen" href="#">Mit eigenen Daten testen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ek-fuss">
+  <div class="container">
+    <div class="ek-fuss__oben">
+    <div class="row g-5">
+      <div class="col-lg-3 ek-fuss__marke">
+        <a class="ek-logo ek-logo--hell" href="#" aria-label="EIGENKERN, zur Startseite">
+          <svg width="28" height="28" aria-hidden="true"><use href="#logo-zeichen"/></svg>
+          <span class="ek-logo__wort">EIGENKERN</span>
+        </a>
+        <p>Ihre eigene KI. Im eigenen Haus.</p>
+        <p>Eigenkern GmbH &amp; Co KG i.&nbsp;Gr.<br>Lastrup</p>
+      </div>
+      <div class="col-lg-9">
+        <div class="ek-fuss__spalten">
+          <div><h2>Was wir tun</h2><ul><li><a href="#">MLKI: die lokale KI im Haus</a></li><li><a href="#">Drei Wege: lokal, Hybrid, Server</a></li><li><a href="#">Der Wächter</a></li><li><a href="#">Der Pseudomizer</a></li><li><a href="#">Der Datenschreiber</a></li><li><a href="#">Geräte und Kosten</a></li><li><a href="#">Vergleich: Cloud oder lokal</a></li><li><a href="#">Testen mit eigenen Unterlagen</a></li></ul></div>
+          <div><h2>Branchen</h2><ul><li><a href="#">Rechtsanwälte und Notare</a></li><li><a href="#">Steuerberatung</a></li><li><a href="#">Medizin und Praxen</a></li><li><a href="#">Energie und Biogas</a></li><li><a href="#">Industrie und Maschinenbau</a></li><li><a href="#">Bildung</a></li><li><a href="#">Landwirtschaft</a></li><li><a href="#">Handwerk</a></li><li><a href="#">Architektur, Verwaltung, Kommunen</a></li></ul></div>
+          <div><h2>Lösungen</h2><ul><li><a href="#">Wissens-KI mit Fundstelle</a></li><li><a href="#">Maschinenlernsystem für Anlagen</a></li><li><a href="#">Flex-Assistent für Biogas</a></li><li><a href="#">Schulung und Lernsystem</a></li></ul></div>
+          <div><h2>Partner</h2><ul><li><a href="#">Branchenpartner</a></li><li><a href="#">Vertriebs- und Umsetzungspartner</a></li><li><a href="#">Technologiepartner</a></li><li><a href="#">So läuft eine Partnerschaft</a></li><li><a href="#">Bestehende Partner</a></li></ul></div>
+          <div><h2>Wer wir sind</h2><ul><li><a href="#">Über uns</a></li><li><a href="#">Geschäftsführung und Gesellschafter</a></li><li><a href="#">Sicherheit und Unterlagen</a></li><li><a href="#">Erklärfilme und Videos</a></li><li><a href="#">Hilfe und häufige Fragen</a></li><li><a href="#">Kontakt</a></li></ul></div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="ek-fuss__unten">
+      <span>Stand: November 2026. Leckrate am Ausgang: 0,00&nbsp;%</span>
+      <nav aria-label="Rechtliches"><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#start">Nach oben</a></nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

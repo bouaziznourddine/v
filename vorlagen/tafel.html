@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Tafel</title>
+<link rel="stylesheet" href="../assets/eigenkern.css">
+<style>
+  body { margin: 0; background: #eef0ef; }
+  .t { width: 2880px; padding: 96px 80px 96px; box-sizing: border-box; }
+  .t-kopf { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 64px; padding-bottom: 40px; border-bottom: 2px solid #293133; margin-bottom: 64px; }
+  .t-kopf h1 { font-stretch: 125%; font-weight: 620; font-size: 88px; line-height: 1.05; letter-spacing: -0.02em; margin: 28px 0 0; }
+  .t-kopf p { font-size: 26px; color: #4e5754; margin: 16px 0 0; }
+  .t-kopf .ek-logo__wort { font-size: 30px; }
+  .t-schriftfeld { display: grid; grid-template-columns: repeat(4, auto); border-top: 2px solid #293133; border-bottom: 2px solid #293133; }
+  .t-schriftfeld div { padding: 16px 28px 18px; border-left: 1px solid #cdd2cf; }
+  .t-schriftfeld div:first-child { border-left: 0; padding-left: 0; }
+  .t-schriftfeld span { display: block; font-size: 18px; color: #4e5754; }
+  .t-schriftfeld b { display: block; font-stretch: 112%; font-size: 28px; font-weight: 600; margin-top: 4px; white-space: nowrap; }
+  .t-reihe { display: grid; grid-template-columns: 1100px 1fr; gap: 80px; align-items: start; }
+  .t-panel { margin-bottom: 72px; }
+  .t-panel img { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px #cdd2cf; background: #fff; }
+  .t-titel { display: flex; gap: 16px; align-items: baseline; margin-bottom: 18px; font-size: 26px; font-weight: 620; }
+  .t-titel .ek-pos { width: 36px; height: 36px; font-size: 18px; position: relative; top: 4px; }
+  .t-titel small { font-size: 20px; font-weight: 400; color: #4e5754; }
+  .t-mobil { display: grid; grid-template-columns: repeat(5, 1fr); gap: 40px; align-items: start; }
+  .t-mobil img { box-shadow: 0 0 0 1px #cdd2cf; }
+  .t-odoo { background: #293133; color: #fff; padding: 44px 52px; display: grid; grid-template-columns: 5fr 7fr; gap: 64px; }
+  .t-odoo h2 { font-stretch: 115%; font-size: 36px; font-weight: 620; margin: 0; }
+  .t-odoo p { font-size: 24px; line-height: 1.55; color: #d4d9d6; margin: 0; }
+  .t-odoo code { font-family: inherit; color: #fff; font-weight: 600; font-size: inherit; }
+</style>
+</head>
+<body>
+<div class="t">
+  <header class="t-kopf">
+    <div>
+      <span class="ek-logo"><svg width="40" height="40" viewBox="0 0 28 28"><rect x="1" y="1" width="26" height="26" fill="none" stroke="#293133" stroke-width="2"/><rect x="10" y="10" width="8" height="8" fill="#1f4d3d"/></svg><span class="ek-logo__wort">EIGENKERN</span></span>
+      <h1>Startseite für eigenkern.de</h1>
+      <p>Entwurf „Technische Unterlage“: Zeichnung statt Stockfoto, Schriftfeld statt Werbeversprechen.</p>
+    </div>
+    <div class="t-schriftfeld">
+      <div><span>Schrift</span><b>Archivo, selbst gehostet</b></div>
+      <div><span>Raster</span><b>Bootstrap 5</b></div>
+      <div><span>Kontrast</span><b>WCAG AA</b></div>
+      <div><span>Bilder</span><b>SVG-Zeichnungen</b></div>
+    </div>
+  </header>
+
+  <div class="t-reihe">
+    <section class="t-panel">
+      <div class="t-titel"><span class="ek-pos">1</span>Startseite, Desktop <small>1440 px, ganze Seite</small></div>
+      <img src="../out/02_homepage_desktop_1440_full.png" alt="">
+    </section>
+    <div>
+      <section class="t-panel">
+        <div class="t-titel"><span class="ek-pos">2</span>Erster Eindruck <small>1440 × 900 px</small></div>
+        <img src="../out/01_hero_desktop_1440x900@2x.png" alt="">
+      </section>
+      <section class="t-panel">
+        <div class="t-titel"><span class="ek-pos">3</span>Der Wächter <small>Original, Schattenkopie, Cloud-KI, Antwort mit echten Namen</small></div>
+        <img src="../out/05_waechter_ablauf.png" alt="">
+      </section>
+      <section class="t-panel">
+        <div class="t-titel"><span class="ek-pos">4</span>Gestaltungsgrundlagen <small>Schrift, Farben, Bedienelemente, Bausteine, Symbole</small></div>
+        <img src="../out/04_style_tile.png" alt="">
+      </section>
+    </div>
+  </div>
+
+  <section class="t-panel">
+    <div class="t-titel"><span class="ek-pos">5</span>Mobil <small>390 px: Einstieg, Fachgebiete, drei Wege (von links nach rechts zu lesen)</small></div>
+    <div class="t-mobil">
+      <img src="../out/_mob_0.png" alt=""><img src="../out/_mob_1.png" alt=""><img src="../out/_mob_2.png" alt=""><img src="../out/_mob_3.png" alt=""><img src="../out/_mob_4.png" alt="">
+    </div>
+  </section>
+
+  <section class="t-odoo">
+    <h2>Umsetzung in Odoo</h2>
+    <p>Grundlage ist Ihr vorhandenes Modul <code>theme_eigenkern</code> auf dem Standard-Website-Modul von Odoo, kein gekauftes Theme: Farben, Abstände und die selbst gehostete Schrift stehen einmal als SCSS-Variablen darin, Bootstrap 5 bleibt unverändert. Jeder Abschnitt wird ein eigener Snippet, im Website-Editor selbst zu pflegen. Das hält die Seite schlank, DSGVO-sauber und updatefest.</p>
+  </section>
+</div>
+</body>
+</html>

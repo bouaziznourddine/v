@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1600">
+<title>Der Wächter: Ablauf</title>
+<link rel="stylesheet" href="assets/bootstrap.min.css">
+<link rel="stylesheet" href="assets/eigenkern.css">
+<style>
+  body { background: var(--ek-anthrazit); color: #fff; }
+  .wa { width: 1600px; padding: 72px 80px 80px; }
+  .wa-kopf { display: grid; grid-template-columns: 8fr 4fr; gap: 64px; align-items: end; margin-bottom: 64px; }
+  .wa-kopf .ek-logo { color: #fff; --ek-logo-kern: #5aa884; }
+  .wa-kopf h1 { font-stretch: 125%; font-weight: 620; font-size: 52px; line-height: 1.08; letter-spacing: -0.016em; margin: 28px 0 0; max-width: 22ch; }
+  .wa-kopf p { color: var(--ek-auf-dunkel); font-size: 18px; margin: 0; max-width: 40ch; }
+  .wa .ek-ablauf { --ek-spalten: minmax(0, 1fr) 64px minmax(0, 1fr) 150px minmax(0, 1fr); }
+  .wa .ek-blatt__dokument { font-size: 19px; }
+  .wa .ek-blatt__kopf { font-size: 19px; }
+  .wa .ek-ablauf__zonen { font-size: 16px; }
+  .wa .ek-mauer__durchgang svg { width: 150px; height: 55px; }
+
+  .wa-unten { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; margin-top: 72px; }
+  .wa-unten h2 { font-size: 21px; font-weight: 640; margin: 0 0 6px; }
+  .wa-unten .ek-leise { color: var(--ek-auf-dunkel); font-size: 16px; margin: 0 0 22px; }
+
+  .wa-kette { display: grid; grid-template-columns: repeat(4, 1fr) auto; border-top: 1.5px solid var(--ek-auf-dunkel-leise); }
+  .wa-kette > div { padding: 18px 20px 4px 0; position: relative; }
+  .wa-kette > div + div { padding-left: 20px; border-left: 1px solid #4a5356; }
+  .wa-kette .ek-pos { width: 26px; height: 26px; font-size: 13px; color: #fff; margin-bottom: 12px; }
+  .wa-kette b { display: block; font-size: 17px; font-weight: 640; margin-bottom: 4px; }
+  .wa-kette span.t { display: block; font-size: 15px; line-height: 1.5; color: var(--ek-auf-dunkel); }
+  .wa-kette .wa-ergebnis { padding-right: 0; }
+  .wa-kette .wa-ergebnis em { font-style: normal; display: block; font-size: 15px; color: var(--ek-auf-dunkel); }
+  .wa-kette .wa-ergebnis strong { display: block; font-stretch: 115%; font-weight: 640; font-size: 30px; line-height: 1.1; margin-top: 4px; white-space: nowrap; }
+
+  .wa-bilder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .wa-bild { background: #fff; color: var(--ek-anthrazit); padding: 14px 14px 16px; }
+  .wa-bild small { display: block; font-size: 13px; color: var(--ek-basalt); margin-bottom: 8px; }
+  .wa-bild p { font-size: 15px; line-height: 1.85; margin: 0; }
+  .wa-erkannt { background: var(--ek-schwefel); outline: 1.5px dashed var(--ek-anthrazit); outline-offset: 1px; padding: 0 3px; white-space: nowrap; }
+  .wa-hinweis { font-size: 15px; color: var(--ek-auf-dunkel); margin: 16px 0 0; line-height: 1.55; }
+</style>
+</head>
+<body>
+<!--SPRITE-->
+<div class="wa">
+  <header class="wa-kopf">
+    <div>
+      <span class="ek-logo"><svg width="28" height="28" aria-hidden="true"><use href="#logo-zeichen"/></svg><span class="ek-logo__wort">EIGENKERN</span></span>
+      <h1>Der Wächter: So wird aus dem Original eine Schattenkopie.</h1>
+    </div>
+    <p>Die echten Angaben bleiben im Haus. Hinaus geht nur der Schatten, zurück kommt die Antwort, und erst bei Ihnen werden die Platzhalter wieder durch echte Namen ersetzt.</p>
+  </header>
+
+  <!--ABLAUF-->
+
+  <div class="wa-unten">
+    <section>
+      <h2>Am Ausgang prüft eine Kette</h2>
+      <p class="ek-leise">Bevor ein Schatten das Haus verlässt, durchläuft er vier Stufen. Bei einem Fund geht nichts hinaus.</p>
+      <div class="wa-kette">
+        <div><span class="ek-pos">1</span><b>Wächter</b><span class="t">erkennen Namen und vertrauliche Angaben, mehrfach</span></div>
+        <div><span class="ek-pos">2</span><b>Richter</b><span class="t">sperrt im Zweifel</span></div>
+        <div><span class="ek-pos">3</span><b>Heilung</b><span class="t">bereinigt, was übrig ist</span></div>
+        <div><span class="ek-pos">4</span><b>Datenschreiber</b><span class="t">nummeriert und versiegelt jede Nachricht</span></div>
+        <div class="wa-ergebnis"><em>Leckrate am Ausgang</em><strong>0,00 %</strong><em>Messreihe offen</em></div>
+      </div>
+    </section>
+    <section>
+      <h2>Auf der Seite: eine einzige Bewegung</h2>
+      <p class="ek-leise">Beim Hineinscrollen werden die gelben Markierungen nacheinander zu Platzhaltern.</p>
+      <div class="wa-bilder">
+        <div class="wa-bild"><small>Original</small><p>Frau <mark class="ek-echt">Muster</mark> von der <mark class="ek-echt">Muster GmbH</mark></p></div>
+        <div class="wa-bild"><small>Wächter erkennt</small><p>Frau <span class="wa-erkannt">Muster</span> von der <span class="wa-erkannt">Muster GmbH</span></p></div>
+        <div class="wa-bild"><small>Schattenkopie</small><p>Frau <span class="ek-platzhalter">Alpha</span> von der <span class="ek-platzhalter">Firma Beta</span></p></div>
+      </div>
+      <p class="wa-hinweis">Wer im System reduzierte Bewegung eingestellt hat, sieht sofort das Ergebnis.</p>
+    </section>
+  </div>
+</div>
+</body>
+</html>
